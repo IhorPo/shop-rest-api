@@ -11,8 +11,8 @@ import lombok.*;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id", nullable = false)
     private Long id;
     @Column(columnDefinition = "VARCHAR(10)", name = "user_name")
     private String name;

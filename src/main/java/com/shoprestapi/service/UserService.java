@@ -29,10 +29,7 @@ public class UserService {
     }
 
     public User create(User user){
-        User user1 = repository.findById(user.getId()).orElseThrow(
-                () -> new UserNotFoundException("No user with id "+user.getId())
-        );
-        return repository.save(user1);
+        return repository.save(user);
     }
     public User edit(Long id, User user){
         Optional<User> u = repository.findById(id);

@@ -1,5 +1,6 @@
 package com.shoprestapi.controller;
 
+import com.shoprestapi.dto.OrderRequest;
 import com.shoprestapi.model.Order;
 import com.shoprestapi.service.OrderService;
 import org.springframework.http.HttpStatus;
@@ -27,11 +28,10 @@ public class OrderController {
     public Order getById(@PathVariable Long id){
         return service.getById(id);
     }
+
     @PostMapping
-    public ResponseEntity<Order> createOrder(
-            @RequestParam("user_id") Long userId,
-            @RequestParam("product_ids") List<Long> productIds) {
-        Order createdOrder = service.createOrder(userId, productIds);
+    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest order) {
+        Order createdOrder = service.createOrder(order.getUserId(), order.getProducts());
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 

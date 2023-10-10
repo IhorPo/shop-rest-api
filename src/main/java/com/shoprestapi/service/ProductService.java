@@ -29,10 +29,7 @@ public class ProductService {
     }
 
     public Product save(Product product){
-        Product p = repository.findById(product.getId()).orElseThrow(
-                () -> new ProductNotFoundException("No such product with id "+product.getId())
-        );
-        return repository.save(p);
+        return repository.save(product);
     }
     public Product edit(Long id, Product product){
         Optional<Product> p = repository.findById(id);

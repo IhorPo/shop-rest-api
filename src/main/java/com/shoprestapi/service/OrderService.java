@@ -4,6 +4,7 @@ import com.shoprestapi.dao.OrderRepository;
 import com.shoprestapi.dao.ProductRepository;
 import com.shoprestapi.dao.UserRepository;
 import com.shoprestapi.exception.OrderNotFoundException;
+import com.shoprestapi.exception.ProductNotFoundException;
 import com.shoprestapi.exception.UserNotFoundException;
 import com.shoprestapi.model.Order;
 import com.shoprestapi.model.Product;
@@ -11,10 +12,8 @@ import com.shoprestapi.model.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
