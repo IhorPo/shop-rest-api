@@ -19,8 +19,13 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAll(){
-        return service.getAll();
+    public ResponseEntity<List<User>> getAll(){
+        List<User> userList = service.getAll();
+
+        if (userList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -30,6 +35,11 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user){
+        if (user == null || user.getName() == null || user.getName().isEmpty() ||
+                user.getEmail() == null || user.getEmail().isEmpty() ||
+                user.getPassword() == null || user.getPassword().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
         return new ResponseEntity<>(service.create(user), HttpStatus.CREATED);
     }
 

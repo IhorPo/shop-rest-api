@@ -1,6 +1,7 @@
 package com.shoprestapi.service;
 
 import com.shoprestapi.dao.UserRepository;
+import com.shoprestapi.exception.IllegalEmailException;
 import com.shoprestapi.exception.UserNotFoundException;
 import com.shoprestapi.model.User;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -29,6 +31,11 @@ public class UserService {
     }
 
     public User create(User user){
+        // email
+        Pattern pEmail = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,6}$");
+        if (user.getEmail() == null || !pEmail.matcher(user.getEmail()).matches()) {
+            throw new IllegalEmailException("Illegal email address");
+        }
         return repository.save(user);
     }
     public User edit(Long id, User user){

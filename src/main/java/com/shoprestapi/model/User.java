@@ -5,7 +5,6 @@ import lombok.*;
 
 
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
 @Entity
 @Table(name = "users")
@@ -21,6 +20,8 @@ public class User {
     @Column
     private String email;
 
+    public User(){}
+
     public User(String name, String password, String email){
         this.name = name;
         this.password = password;
@@ -29,6 +30,10 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

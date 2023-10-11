@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class Handler {
-    @ExceptionHandler(value = UserNotFoundException.class)
+    @ExceptionHandler(value = {UserNotFoundException.class})
     public ResponseEntity<Object> userNotFound(UserNotFoundException e){
         DefaultException exception = new DefaultException(
                 e.getMessage(),
@@ -20,7 +20,7 @@ public class Handler {
         return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = OrderNotFoundException.class)
+    @ExceptionHandler(value = {OrderNotFoundException.class})
     public ResponseEntity<Object> orderNotFound(OrderNotFoundException e){
         DefaultException exception = new DefaultException(
                 e.getMessage(),
@@ -30,8 +30,19 @@ public class Handler {
         return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = ProductNotFoundException.class)
+    @ExceptionHandler(value = {ProductNotFoundException.class})
     public ResponseEntity<Object> productNotFound(ProductNotFoundException e){
+        DefaultException exception = new DefaultException(
+                e.getMessage(),
+                HttpStatus.NOT_FOUND,
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = {IllegalEmailException.class})
+    public ResponseEntity<Object> illegalEmail(IllegalEmailException e){
         DefaultException exception = new DefaultException(
                 e.getMessage(),
                 HttpStatus.NOT_FOUND,
